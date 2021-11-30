@@ -13,7 +13,7 @@ const methodOverride = require('method-override');
 const session = require('express-session'); // allows us to use session
 const flash = require('connect-flash'); // allows us to use flash message
 const ExpressError = require('./utilities/ExpressError'); // use our own defined errors extended from default error
-const MongoDBStore = require('connect-mongo');
+const MongoStore = require('connect-mongo');
 
 const dashboardRoutes = require('./routes/dashboardRoutes'); // require route from dashboardRoutes.js
 const authRoutes = require('./routes/authRoutes'); // require routes from authRoutes.js
@@ -51,13 +51,6 @@ app.use(express.static(path.join(__dirname, 'public'))) // for static files
 //     console.log(`SESSION STORE ERROR: ${e}`)
 // });
 
-let store = new MongoDBStore({
-    mongoUrl: dbUrl,
-    collection: "sessions",
-    touchAfter: 24 * 60 * 60,
-    secret: process.env.SECRET
-});
-
 // session configuration
 const sessionConfig = {
     name: 'session',
@@ -70,7 +63,9 @@ const sessionConfig = {
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // expiration time of session
         maxAge: 1000 * 60 * 60 * 24 * 7 // maximum age of session
     },
-    store: store
+    store: MongoStore.create({
+        mongoUrl: dbUrl
+    })
 }
 app.use(session(sessionConfig)); // use session with setting of sessionConfig
 app.use(flash()) // use flash message
