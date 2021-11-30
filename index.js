@@ -53,7 +53,6 @@ app.use(express.static(path.join(__dirname, 'public'))) // for static files
 
 // session configuration
 const sessionConfig = {
-    store,
     name: 'session',
     secret: process.env.SECRET,
     resave: false,
