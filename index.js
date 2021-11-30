@@ -67,7 +67,6 @@ const sessionConfig = {
         mongoUrl: dbUrl,
         secret: process.env.SECRET,
         touchAfter: 24 * 60 * 60,
-        ...options
     })
 }
 app.use(session(sessionConfig)); // use session with setting of sessionConfig
