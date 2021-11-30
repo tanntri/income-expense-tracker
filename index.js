@@ -47,9 +47,9 @@ app.use(express.static(path.join(__dirname, 'public'))) // for static files
 //     touchAfter: 24 * 60 * 60
 // });
 
-store.on("error", function(e) {
-    console.log(`SESSION STORE ERROR: ${e}`)
-});
+// store.on("error", function(e) {
+//     console.log(`SESSION STORE ERROR: ${e}`)
+// });
 
 // session configuration
 const sessionConfig = {
