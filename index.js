@@ -13,7 +13,7 @@ const methodOverride = require('method-override');
 const session = require('express-session'); // allows us to use session
 const flash = require('connect-flash'); // allows us to use flash message
 const ExpressError = require('./utilities/ExpressError'); // use our own defined errors extended from default error
-const MongoDBStore = require('connect-mongo')(session);
+const MongoDBStore = require('connect-mongo');
 
 const dashboardRoutes = require('./routes/dashboardRoutes'); // require route from dashboardRoutes.js
 const authRoutes = require('./routes/authRoutes'); // require routes from authRoutes.js
@@ -41,11 +41,11 @@ app.use(express.urlencoded({ extended: true })); // required to use req.body
 app.use(methodOverride('_method')); // allows us to override POST method with PUT or DELETE
 app.use(express.static(path.join(__dirname, 'public'))) // for static files
 
-const store = new MongoDBStore({
-    url: dbUrl,
-    secret: process.env.SECRET,
-    touchAfter: 24 * 60 * 60
-});
+// const store = new MongoDBStore({
+//     url: dbUrl,
+//     secret: process.env.SECRET,
+//     touchAfter: 24 * 60 * 60
+// });
 
 store.on("error", function(e) {
     console.log(`SESSION STORE ERROR: ${e}`)
@@ -63,7 +63,12 @@ const sessionConfig = {
         // secure: true,
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // expiration time of session
         maxAge: 1000 * 60 * 60 * 24 * 7 // maximum age of session
-    }
+    },
+    store: MongoDBStore.create({
+        url: dbUrl,
+        secret: process.env.SECRET,
+        touchAfter: 24 * 60 * 60
+    })
 }
 app.use(session(sessionConfig)); // use session with setting of sessionConfig
 app.use(flash()) // use flash message
