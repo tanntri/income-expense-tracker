@@ -19,10 +19,10 @@ const dashboardRoutes = require('./routes/dashboardRoutes'); // require route fr
 const authRoutes = require('./routes/authRoutes'); // require routes from authRoutes.js
 const apiRoutes = require('./routes/apiRoutes'); // require routes from apiRoutes.js
 
-const dbUrl = process.env.DBURL;
+const dbUrl = process.env.DBURL || 'mongodb://localhost:27017/expense-tracker';
 
 app = express();
-//'mongodb://localhost:27017/expense-tracker'
+
 mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
