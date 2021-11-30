@@ -1,0 +1,86 @@
+<% layout('layouts/boilerplate') %>
+    <header>
+        <h2>
+            <%= user.fullname %>
+        </h2>
+        <h3>Total Fund: $
+            <%= user.fund %>
+        </h3>
+    </header>
+    <ul class="nav nav-tabs mt-3">
+        <li class="nav-item nav-dash" id="all-tab">
+            <a class="nav-link transTab active" id="show-transactions">All</a>
+        </li>
+        <li class="nav-item nav-dash" id="income-tab">
+            <a class="nav-link transTab" id="show-incomes">Income</a>
+        </li>
+        <li class="nav-item nav-dash" id="expense-tab">
+            <a class="nav-link transTab" id="show-expenses">Expense</a>
+        </li>
+    </ul>
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4 class="card-title" id="title-of-card">
+                        <%= monthName %>
+                            <%= yyyy %>
+                    </h4>
+                </div>
+                <div class="col-md-8 card-form">
+                    <form id="date-form">
+                        <select name="month" class="form-select form-select-sm date-form" aria-label=".form-select-sm example">
+                            <% for(let i=0; i <= 11; i++) { %>
+                                <option <%= months[i+1] === monthName ? "selected" : "" %> value="<%= i+1 %>"><%= months[i+1] %></option>
+                            <% } %>
+                        </select>
+                        <select name="year" class="form-select form-select-sm date-form" aria-label=".form-select-sm example">
+                            <% for(let year of yearList) { %>                        
+                                <option <%= year === yyyy ? "selected": "" %> value="<%= year %>"><%= year %></option>
+                            <% } %>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <ul class="list-group list-group-flush" id="money-info">
+
+        </ul>
+
+    </div>
+
+
+    <br>
+
+    <!-- <button id="show-expenses">Show Expenses</button>
+    <button id="show-incomes">Show Incomes</button>
+    <button id="show-transactions">Show Transactions</button> -->
+    <div class="mb-5 mt-3 add-buttons">
+        <a href="/user/<%= currentUser._id %>/addIncome" class="btn btn-success">Add Income</a>
+        <a href="/user/<%= currentUser._id %>/addExpense" class="btn btn-danger">Add Expense</a>
+    </div>
+
+    <div class="row mb-5">
+        <div class="col-md-6" id='doughnut1-div'>
+            <canvas id="doughnut1"></canvas>
+        </div>
+        <div class="col-md-6" id='doughnut2-div'>
+            <canvas id="doughnut2"></canvas>
+        </div>
+    </div>
+    <!-- <div class='row mb-5'>
+        <div class="col-md-6"></div>
+        <div class="col-md-6"></div>
+    </div> -->
+
+    <script src="https://kit.fontawesome.com/4abfc34776.js" crossorigin="anonymous"></script>
+    <script>
+        const userId = '<%- currentUser._id %>';
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@3.6.0/dist/chart.min.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/js/dashboardJS.js"></script>

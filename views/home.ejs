@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link rel="stylesheet" href="/styles/landing.css">
+    <link rel="stylesheet" href="/styles/navbar.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <title>$PENT</title>
+</head>
+
+<body class="text-center">
+    <nav class="navbar sticky-top navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="/">$PENT</a>
+            <button class="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                    <% if(!currentUser) { %>
+                        <li class="nav-item">
+                            <a class="nav-link active topbar" aria-current="page" href="/">Home</a>
+                        </li>
+                        <% } else { %>
+                            <li class="nav-item">
+                                <a class="nav-link active topbar" aria-current="page" href="/">Dashboard</a>
+                            </li>
+                            <%}%>
+                </ul>
+                <ul class='navbar-nav ml-auto'>
+                    <% if(!currentUser) { %>
+                        <li class='nav-item'>
+                            <a class="nav-link active topbar" aria-current="page" href="/login">Login</a>
+                        </li>
+                        <li class='nav-item'>
+                            <a class="nav-link active topbar" aria-current="page" href="/register">Register</a>
+                        </li>
+                        <% } else { %>
+                            <li class='nav-item'>
+                                <a class="nav-link active topbar" aria-current="page" href="/logout">Logout</a>
+                            </li>
+                            <% } %>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <div class="text-white" id="landing-div">
+        <h1>$PENT</h1>
+        <p class='lead'>Welcome to $PENT</p>
+        <p>We simplify income and expense tracking for you</p>
+        <a href="/register" class="btn btn-lg" id="landing-regis">Register</a>
+        <a href="/login" class="btn btn-secondary btn-lg">Login</a>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+</body>
+
+</html>

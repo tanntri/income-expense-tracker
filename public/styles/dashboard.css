@@ -1,0 +1,163 @@
+header {
+    font-family: 'Merriweather', serif;
+    font-weight: 800;
+    text-align: center;
+}
+
+h4 {
+    margin-top: 6px;
+}
+
+.date-form {
+    display: inline-block;
+    margin-top: 6px;
+    width: 150px;
+}
+
+.card-header {
+    background-color: #ffc933;
+    font-family: 'Merriweather', serif;
+}
+
+.nav-dash {
+    background-color: #ffc933;
+    border: 0px solid transparent;
+}
+
+.nav-tabs .nav-link {
+    border: 0px solid transparent;
+    background-color: #e7e7e4;
+}
+
+.nav-tabs .nav-link:hover {
+    background-color: white;
+}
+
+.income {
+    background-color: rgba(82, 252, 82, 0.3);
+}
+
+.expense {
+    /* color: red; */
+    background-color: rgba(250, 87, 87, 0.2)
+}
+
+.transaction-date {
+    font-size: 11px;
+}
+
+.transTab:hover {
+    cursor: pointer;
+}
+
+.transTab {
+    color: #383836;
+}
+
+.card-form {
+    text-align: right;
+}
+
+
+/* .nav-dash a:hover {
+    background-color: #ffc933;
+    color: black;
+} */
+
+.nav-tabs {
+    border-bottom: none;
+}
+
+.activated-tab {
+    background-color: #ffc933;
+}
+
+.transaction-info {
+    font-family: 'Noto Sans', sans-serif;
+    display: flex;
+    align-items: center;
+}
+
+.transaction-icon {
+    text-align: center;
+}
+
+.transaction-cat {
+    font-weight: bold;
+}
+
+.transaction-amount {
+    font-weight: bolder;
+    text-align: center;
+    font-size: 18px;
+}
+
+.expense .transaction-amount {
+    color: red;
+}
+
+.income .transaction-amount {
+    color: green;
+}
+
+.transaction-buttons {
+    text-align: center;
+}
+
+.btn-sm {
+    margin-right: 4px;
+}
+
+.add-buttons {
+    text-align: center;
+}
+
+.fas {
+    font-size: xx-large;
+}
+
+.total {
+    font-family: 'Noto Sans', sans-serif;
+    font-size: 20px;
+    text-align: center;
+}
+
+.footer {
+    background-color: #ffc933;
+}
+
+
+/* [class*="transaction-"] {
+    display: flex;
+    /* flex-direction: row; */
+
+
+/* align-items: center;
+} */
+
+@media only screen and (max-width: 768px) {
+    body {
+        text-align: center;
+    }
+    .card {
+        width: 95%;
+        margin: auto;
+    }
+    .nav-tabs {
+        margin-left: 48%;
+    }
+    .card-header {
+        text-align: center;
+    }
+    .card-form {
+        text-align: center;
+    }
+    #doughnut2-div {
+        margin-top: 20px;
+    }
+    [class*="transaction-"] {
+        margin-top: 4px;
+        margin-bottom: 4px;
+        display: block;
+    }
+}

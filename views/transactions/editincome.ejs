@@ -1,0 +1,24 @@
+<% layout('layouts/boilerplate') %>
+    <h1>Edit Income</h1>
+    <form action="/user/<%= currentUser._id %>/<%= income._id %>/editIncome?_method=PUT" method="POST" class="mb-5 validated-form" novalidate>
+        <div class='mb-3'>
+            <label class='form-label' for="amount">Amount</label>
+            <div class='input-group'>
+                <span class='input-group-text'>$</span>
+                <input class='form-control' type="text" id="amount" placeholder='0.00' name="income[amount]" value="<%= income.amount %>" required>
+            </div>
+        </div>
+        <label class='form-label' for="category">Category</label>
+        <select class="form-select mb-3" aria-label="Default select example" name="income[category]" id="category" value="<%= income.category %>">
+            <option <%= income.category === 'Salary' ? 'selected': "" %> value="Salary">Salary</option>
+            <option <%= income.category === 'Wages' ? 'selected': "" %> value="Wages">Wages</option>
+            <option <%= income.category === 'Investment' ? 'selected': "" %> value="Investment">Investment</option>
+            <option <%= income.category === 'Allowance' ? 'selected': "" %> value="Allowance">Allowance</option>
+            <option <%= income.category === 'Others' ? 'selected': "" %> value="Others">Others</option>
+        </select>
+        <div class="mb-3">
+            <label for="description" class="form-label">Note</label>
+            <textarea type="text" class="form-control" id="description" name="income[description]"><%= income.description %></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Confirm</button>
+    </form>

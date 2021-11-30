@@ -1,0 +1,131 @@
+<% layout('layouts/boilerplate') %>
+    <header>
+        <h2>
+            <%= user.fullname %>
+        </h2>
+        <h3>Total Fund: $
+            <%= user.fund %>
+        </h3>
+    </header>
+    <ul class="nav nav-tabs mt-3">
+        <li class="nav-item nav-dash" id="all-tab">
+            <a class="nav-link transTab active" id="show-transactions">All</a>
+        </li>
+        <li class="nav-item nav-dash" id="income-tab">
+            <a class="nav-link transTab" id="show-incomes">Income</a>
+        </li>
+        <li class="nav-item nav-dash" id="expense-tab">
+            <a class="nav-link transTab" id="show-expenses">Expense</a>
+        </li>
+    </ul>
+    <div class="card">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-4">
+                    <h4 class="card-title">
+                        <%= monthName %>
+                            <%= yyyy %>
+                    </h4>
+                </div>
+                <div class="col-md-8 card-form">
+                    <form action="/api/user/<%= currentUser._id %>/transactions?month=month&year=year" method="GET">
+                        <select name="month" class="form-select form-select-sm date-form" aria-label=".form-select-sm example">
+                            <% for(let i=0; i <= 11; i++) { %>
+                                <option <%= months[i+1] === monthName ? "selected" : "" %> value="<%= i+1 %>"><%= months[i+1] %></option>
+                            <% } %>
+                        </select>
+                        <select name="year" class="form-select form-select-sm date-form" aria-label=".form-select-sm example">
+                            <% for(let year of yearList) { %>                        
+                                <option <%= year === yyyy ? "selected": "" %> value="<%= year %>"><%= year %></option>
+                            <% } %>
+                        </select>
+                        <button type="submit" class="btn btn-primary btn-sm">Search</button>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+
+        <ul class="list-group list-group-flush" id="money-info">
+            <% for(let transaction of user.transactions) { %>
+                <% if(transaction.transType === 'income') { %>
+                    <li class="list-group-item income">
+                        <div class="row transaction-info">
+                            <div class="col-md-1 transaction-icon">
+                                <i class="fas <%= transactionIcons[transaction.category] %>"></i>
+                            </div>
+                            <div class="col-md-2">
+                                <div class="transaction-cat">
+                                    <%= transaction.category %>
+                                </div>
+                                <div class='transaction-date'>
+                                    <%= (transaction.createdAt).toDateString() %>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <%= transaction.description %>
+                            </div>
+                            <div class="col-md-3 transaction-amount">+$
+                                <%= transaction.amount %>
+                            </div>
+                            <div class="col-md-3 transaction-buttons">
+                                <a class='btn btn-primary btn-sm' href="/user/<%= currentUser._id %>/<%= transaction._id %>/editIncome">Edit</a>
+                                <form class='d-inline' action="/user/<%= currentUser._id %>/<%= transaction._id %>/deleteTransaction?_method=DELETE" method='POST'>
+                                    <button class='btn btn-danger btn-sm'>Delete</button>
+                                </form>
+                            </div>
+                        </div>
+                    </li>
+
+                    <% } else { %>
+
+                        <li class="list-group-item expense">
+                            <div class="row transaction-info">
+                                <div class="col-md-1 transaction-icon">
+                                    <i class="fas <%= transactionIcons[transaction.category] %>"></i>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="transaction-cat">
+                                        <%= transaction.category %>
+                                    </div>
+                                    <div class="transaction-date">
+                                        <%= (transaction.createdAt).toDateString() %>
+                                    </div>
+                                </div>
+                                <div class="col-md-3">
+                                    <%= transaction.description %>
+                                </div>
+                                <div class="col-md-3 transaction-amount">-$
+                                    <%= transaction.amount %>
+                                </div>
+                                <div class="col-md-3 transaction-buttons">
+                                    <a class='btn btn-primary btn-sm' href="/user/<%= currentUser._id %>/<%= transaction._id %>/editExpense">Edit</a>
+                                    <form class='d-inline' action="/user/<%= currentUser._id %>/<%= transaction._id %>/deleteTransaction?_method=DELETE" method='POST'>
+                                        <button class='btn btn-danger btn-sm'>Delete</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </li>
+                        <% } %>
+                            <% } %>
+        </ul>
+
+    </div>
+
+
+    <br>
+
+    <!-- <button id="show-expenses">Show Expenses</button>
+    <button id="show-incomes">Show Incomes</button>
+    <button id="show-transactions">Show Transactions</button> -->
+    <div class="mb-5 mt-3 add-buttons">
+        <a href="/user/<%= currentUser._id %>/addIncome" class="btn btn-success">Add Income</a>
+        <a href="/user/<%= currentUser._id %>/addExpense" class="btn btn-danger">Add Expense</a>
+    </div>
+
+    <script src="https://kit.fontawesome.com/4abfc34776.js" crossorigin="anonymous"></script>
+    <script>
+        const userId = '<%- currentUser._id %>';
+    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/js/dashboardJS.js"></script>

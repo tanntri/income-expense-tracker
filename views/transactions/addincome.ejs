@@ -1,0 +1,24 @@
+<% layout('layouts/boilerplate') %>
+    <h1 class="mb-5">Add Income</h1>
+    <form action="/user/<%= currentUser._id %>" method="POST" class="mb-5 validated-form" novalidate>
+        <div class='mb-3'>
+            <label class='form-label' for="amount">Amount</label>
+            <div class='input-group'>
+                <span class='input-group-text'>$</span>
+                <input class='form-control' type="text" id="amount" placeholder='0.00' name="income[amount]" required>
+            </div>
+        </div>
+        <label class='form-label' for="category">Category</label>
+        <select class="form-select mb-3" aria-label="Default select example" name="income[category]" id="category">
+            <option selected value="Salary">Salary</option>
+            <option value="Wages">Wages</option>
+            <option value="Investment">Investment</option>
+            <option value="Allowance">Allowance</option>
+            <option value="Others">Others</option>
+        </select>
+        <div class="mb-3">
+            <label for="description" class="form-label">Note</label>
+            <textarea type="text" class="form-control" id="description" name="income[description]"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
