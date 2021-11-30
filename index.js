@@ -13,7 +13,7 @@ const methodOverride = require('method-override');
 const session = require('express-session'); // allows us to use session
 const flash = require('connect-flash'); // allows us to use flash message
 const ExpressError = require('./utilities/ExpressError'); // use our own defined errors extended from default error
-const MongoDBStore = require('connect-mongo').default;
+const MongoDBStore = require('connect-mongo');
 
 const dashboardRoutes = require('./routes/dashboardRoutes'); // require route from dashboardRoutes.js
 const authRoutes = require('./routes/authRoutes'); // require routes from authRoutes.js
