@@ -22,7 +22,7 @@ const months = {
 // function to render dashboard
 //********************************* */
 module.exports.renderDashboard = async(req, res) => {
-    res.locals.title = "Dashboard";
+    // res.locals.title = "Dashboard";
     const { id } = req.params; // deconstruct id from parameter
     const user = await User.findById(id).populate('income').populate('expense'); // find user by id and populate income and expense (necessary to use user.transactions)
     let thisMonth = new Date(); // current date
@@ -34,7 +34,7 @@ module.exports.renderDashboard = async(req, res) => {
     for (let i = minYear; i <= yyyy; i++) { // loop from minYear to current year
         yearList.push(i); // push years into yearList array
     }
-    res.render('dashboard/dashboard', { user, monthName, yyyy, months, yearList }); // render dashboard with these variables
+    res.render('dashboard/dashboard', { user, monthName, yyyy, months, yearList, title: 'Dashboard' }); // render dashboard with these variables
 }
 
 //********************************** */
@@ -66,23 +66,23 @@ module.exports.createTransaction = async(req, res) => {
 // function to render add income form
 //**************************************** */
 module.exports.renderAddIncomeForm = (req, res) => {
-    res.locals.title = 'Add Income'
-    res.render('transactions/addincome');
+    // res.locals.title = 'Add Income'
+    res.render('transactions/addincome', { title: 'Add Income' });
 }
 
 //***************************************** */
 // function to render add expense form
 //***************************************** */
 module.exports.renderAddExpenseForm = (req, res) => {
-    res.locals.title = 'Add Expense';
-    res.render('transactions/addexpense');
+    // res.locals.title = 'Add Expense';
+    res.render('transactions/addexpense', { title: 'Add Expense' });
 }
 
 //**************************************** */
 // function to render edit income form
 //**************************************** */
 module.exports.renderEditIncomeForm = async(req, res) => {
-    res.locals.title = 'Edit Income'
+    // res.locals.title = 'Edit Income'
     const { id, incomeId } = req.params; // deconstruct user id and income id from parameters
     const user = await User.findById(id) // find user by id
     const income = await Income.findById(incomeId); // find income by id
@@ -90,7 +90,7 @@ module.exports.renderEditIncomeForm = async(req, res) => {
         req.flash('error', 'Income ID not found'); // flash error message
         res.redirect(`/user/${req.user._id}`); // redirect back to dashboard
     }
-    res.render('transactions/editincome', { income, user }); // render edit form with pre-filled values
+    res.render('transactions/editincome', { income, user, title: 'Edit Income' }); // render edit form with pre-filled values
 
 }
 
@@ -108,7 +108,7 @@ module.exports.updateIncome = async(req, res) => {
 // function to render edit expense form
 //****************************************** */
 module.exports.renderEditExpenseForm = async(req, res) => {
-    res.locals.title = 'Edit Expense';
+    // res.locals.title = 'Edit Expense';
     const { id, expenseId } = req.params; // deconstruct user id and expense id from parameters
     const user = await User.findById(id) // find user by id
     const expense = await Expense.findById(expenseId); // find expense by id
@@ -116,7 +116,7 @@ module.exports.renderEditExpenseForm = async(req, res) => {
         req.flash('error', 'Expense ID not found'); // flash error message
         res.redirect(`/user/${req.user._id}`); // redirect back to user dashboard
     }
-    res.render('transactions/editexpense', { expense, user }); // if found, render form with pre-filled values
+    res.render('transactions/editexpense', { expense, user, title: 'Edit Expense' }); // if found, render form with pre-filled values
 
 }
 

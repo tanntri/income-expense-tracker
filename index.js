@@ -88,7 +88,7 @@ passport.deserializeUser(User.deserializeUser()) // tell passport how to deseria
 
 // middleware to store variables in the locals
 app.use((req, res, next) => {
-    res.locals.title;
+    // res.locals.title;
     res.locals.currentUser = req.user;
     res.locals.success = req.flash('success');
     res.locals.error = req.flash('error');

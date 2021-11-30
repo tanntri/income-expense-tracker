@@ -4,8 +4,8 @@ const User = require('../models/user'); // require user model
 // function to render register form
 //**************************************** */
 module.exports.renderRegisterForm = (req, res) => {
-    res.locals.title = 'Register';
-    res.render('register');
+    // res.locals.title = 'Register';
+    res.render('register', { title: 'Register' });
 }
 
 //********************************** */
@@ -35,8 +35,8 @@ module.exports.registerUser = async(req, res) => {
 // function to render login form
 //************************************ */
 module.exports.renderLoginForm = (req, res) => {
-    res.locals.title = "Login"
-    res.render('login');
+    // res.locals.title = "Login"
+    res.render('login', { title: 'Login' });
 }
 
 //********************************* */
