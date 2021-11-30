@@ -98,6 +98,6 @@ app.use((err, req, res, next) => {
     res.status(statusCode).render('error', { err }); // render error message page
 })
 
-app.listen(3000, () => {
+app.listen(process.env.PORT || 3000, () => {
     console.log('EXPENSE TRACKING APP ON PORT 3000');
 })
