@@ -47,6 +47,11 @@ app.use(express.static(path.join(__dirname, 'public'))) // for static files
 //     touchAfter: 24 * 60 * 60
 // });
 
+const store = new MongoStore({
+    client: db.getClient(),
+    collectionName: 'sessions'
+})
+
 // store.on("error", function(e) {
 //     console.log(`SESSION STORE ERROR: ${e}`)
 // });
@@ -63,9 +68,7 @@ const sessionConfig = {
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // expiration time of session
         maxAge: 1000 * 60 * 60 * 24 * 7 // maximum age of session
     },
-    store: MongoStore.create({
-        mongoUrl: dbUrl
-    })
+    store: store
 }
 app.use(session(sessionConfig)); // use session with setting of sessionConfig
 app.use(flash()) // use flash message
