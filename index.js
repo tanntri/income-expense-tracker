@@ -13,14 +13,17 @@ const methodOverride = require('method-override');
 const session = require('express-session'); // allows us to use session
 const flash = require('connect-flash'); // allows us to use flash message
 const ExpressError = require('./utilities/ExpressError'); // use our own defined errors extended from default error
+const MongoDBStore = require('connect-mongo')(session);
 
 const dashboardRoutes = require('./routes/dashboardRoutes'); // require route from dashboardRoutes.js
 const authRoutes = require('./routes/authRoutes'); // require routes from authRoutes.js
 const apiRoutes = require('./routes/apiRoutes'); // require routes from apiRoutes.js
 
-app = express();
+const dbUrl = process.env.DBURL;
 
-mongoose.connect('mongodb://localhost:27017/expense-tracker', {
+app = express();
+//'mongodb://localhost:27017/expense-tracker'
+mongoose.connect(dbUrl, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 });
@@ -38,8 +41,19 @@ app.use(express.urlencoded({ extended: true })); // required to use req.body
 app.use(methodOverride('_method')); // allows us to override POST method with PUT or DELETE
 app.use(express.static(path.join(__dirname, 'public'))) // for static files
 
+const store = new MongoDBStore({
+    url: dbUrl,
+    secret: process.env.SECRET,
+    touchAfter: 24 * 60 * 60
+});
+
+store.on("error", function(e) {
+    console.log(`SESSION STORE ERROR: ${e}`)
+});
+
 // session configuration
 const sessionConfig = {
+    store,
     name: 'session',
     secret: process.env.SECRET,
     resave: false,
