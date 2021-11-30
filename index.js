@@ -47,10 +47,13 @@ app.use(express.static(path.join(__dirname, 'public'))) // for static files
 //     touchAfter: 24 * 60 * 60
 // });
 
-const store = new MongoStore({
-    client: db.getClient(),
-    collectionName: 'sessions'
-})
+const store = MongoStore.create({
+    mongoUrl: dbUrl,
+    touchAfter: 24 * 60 * 60,
+    crypto: {
+        secret: process.env.SECRET
+    }
+});
 
 // store.on("error", function(e) {
 //     console.log(`SESSION STORE ERROR: ${e}`)
@@ -58,6 +61,7 @@ const store = new MongoStore({
 
 // session configuration
 const sessionConfig = {
+    store,
     name: 'session',
     secret: process.env.SECRET,
     resave: false,
@@ -68,7 +72,6 @@ const sessionConfig = {
         expires: Date.now() + 1000 * 60 * 60 * 24 * 7, // expiration time of session
         maxAge: 1000 * 60 * 60 * 24 * 7 // maximum age of session
     },
-    store: store
 }
 app.use(session(sessionConfig)); // use session with setting of sessionConfig
 app.use(flash()) // use flash message
