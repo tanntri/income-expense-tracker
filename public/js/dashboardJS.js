@@ -225,7 +225,6 @@ const renderCharts = async(month, year) => {
         let expensePercentageValues = []
         bgColorArray = []
         for (let key of keysArray) {
-            console.log(expenseChart[key].value)
             if (expenseChart[key].value !== 0) {
                 expenseChart[key].value = ((expenseChart[key].value / totalExpense) * 100).toFixed(2);
             } else {
@@ -274,7 +273,6 @@ let doughnut1 = document.getElementById('doughnut1');
 let doughnut2 = document.getElementById('doughnut2');
 
 const baseURL = window.location.origin; // base url to call api
-console.log(baseURL)
 
 //********************************** */
 // function to get date
