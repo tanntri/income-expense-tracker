@@ -20,7 +20,7 @@ h4 {
 }
 
 .nav-dash {
-    background-color: #ffc933;
+    /* background-color: #ffc933; */
     border: 0px solid transparent;
 }
 
@@ -144,7 +144,9 @@ h4 {
         margin: auto;
     }
     .nav-tabs {
-        margin-left: 48%;
+        margin-left: auto;
+        margin-right: auto;
+        width: 500px;
     }
     .card-header {
         text-align: center;

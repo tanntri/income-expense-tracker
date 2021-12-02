@@ -41,12 +41,6 @@ app.use(express.urlencoded({ extended: true })); // required to use req.body
 app.use(methodOverride('_method')); // allows us to override POST method with PUT or DELETE
 app.use(express.static(path.join(__dirname, 'public'))) // for static files
 
-// const store = new MongoDBStore({
-//     url: dbUrl,
-//     secret: process.env.SECRET,
-//     touchAfter: 24 * 60 * 60
-// });
-
 const store = MongoStore.create({
     mongoUrl: dbUrl,
     touchAfter: 24 * 60 * 60,
@@ -54,10 +48,6 @@ const store = MongoStore.create({
         secret: process.env.SECRET
     }
 });
-
-// store.on("error", function(e) {
-//     console.log(`SESSION STORE ERROR: ${e}`)
-// });
 
 // session configuration
 const sessionConfig = {
