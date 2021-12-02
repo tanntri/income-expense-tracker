@@ -205,7 +205,6 @@ const renderCharts = async(month, year) => {
         let incomePercentageValues = []
         let bgColorArray = []
         for (let key of keysArray) {
-            console.log(incomeChart[key].value)
             if (incomeChart[key].value !== 0) {
                 incomeChart[key].value = ((incomeChart[key].value / totalIncome) * 100).toFixed(2);
             } else {
