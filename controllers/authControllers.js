@@ -36,7 +36,7 @@ module.exports.registerUser = async(req, res) => {
 //************************************ */
 module.exports.renderLoginForm = (req, res) => {
     // res.locals.title = "Login"
-    res.render('login', { title: 'Login' });
+    res.render('login');
 }
 
 //********************************* */

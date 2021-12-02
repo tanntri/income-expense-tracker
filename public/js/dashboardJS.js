@@ -524,13 +524,8 @@ const cardTitle = document.getElementById('title-of-card'); // assign field id t
 //*********************************** */
 const searchByMonth = async(evt) => {
     evt.preventDefault(); // prevent page to reload when the form is submitted
-    // doughnutCanvas1.clearRect(0, 0, doughnutCanvas1.width, doughnutCanvas1.height);
-    // doughnutCanvas2.clearRect(0, 0, doughnutCanvas2.width, doughnutCanvas2.height);
-    // doughnutChart1.destroy();
-    // doughnutChart2.destroy();
     const formData = new FormData(form); // assign data from the form to the variable formData
     const params = new URLSearchParams(formData); // get url parameter from formData and assign to the variable params
-    // doughnutChart.destroy();
     month = params.get('month'); // update value of month with value of month from params
     year = params.get('year'); // update value of year with value of year from params
     cardTitle.innerHTML = months[month] + ' ' + year // update card title with month and year
