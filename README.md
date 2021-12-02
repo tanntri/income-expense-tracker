@@ -4,6 +4,11 @@
 
 $PENT is a webapp for tracking monthly incomes and expenses. It also comes with simple data visualization to make it easier to see how much you spent on each category
 
+Try it at: https://spent-income-expense-tracker.herokuapp.com/
+
+Username: example1
+Password: example1
+
 ## Features
 
 - Registration, Authenthication, Authorization
