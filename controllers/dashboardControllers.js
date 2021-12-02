@@ -34,7 +34,7 @@ module.exports.renderDashboard = async(req, res) => {
     for (let i = minYear; i <= yyyy; i++) { // loop from minYear to current year
         yearList.push(i); // push years into yearList array
     }
-    res.render('dashboard/dashboard', { user, monthName, yyyy, months, yearList, title: 'Dashboard' }); // render dashboard with these variables
+    res.render('dashboard/dashboard', { user, monthName, yyyy, months, yearList }); // render dashboard with these variables
 }
 
 //********************************** */
@@ -67,7 +67,7 @@ module.exports.createTransaction = async(req, res) => {
 //**************************************** */
 module.exports.renderAddIncomeForm = (req, res) => {
     // res.locals.title = 'Add Income'
-    res.render('transactions/addincome', { title: 'Add Income' });
+    res.render('transactions/addincome');
 }
 
 //***************************************** */
@@ -75,7 +75,7 @@ module.exports.renderAddIncomeForm = (req, res) => {
 //***************************************** */
 module.exports.renderAddExpenseForm = (req, res) => {
     // res.locals.title = 'Add Expense';
-    res.render('transactions/addexpense', { title: 'Add Expense' });
+    res.render('transactions/addexpense');
 }
 
 //**************************************** */
@@ -90,7 +90,7 @@ module.exports.renderEditIncomeForm = async(req, res) => {
         req.flash('error', 'Income ID not found'); // flash error message
         res.redirect(`/user/${req.user._id}`); // redirect back to dashboard
     }
-    res.render('transactions/editincome', { income, user, title: 'Edit Income' }); // render edit form with pre-filled values
+    res.render('transactions/editincome', { income, user }); // render edit form with pre-filled values
 
 }
 
@@ -116,7 +116,7 @@ module.exports.renderEditExpenseForm = async(req, res) => {
         req.flash('error', 'Expense ID not found'); // flash error message
         res.redirect(`/user/${req.user._id}`); // redirect back to user dashboard
     }
-    res.render('transactions/editexpense', { expense, user, title: 'Edit Expense' }); // if found, render form with pre-filled values
+    res.render('transactions/editexpense', { expense, user }); // if found, render form with pre-filled values
 
 }
 

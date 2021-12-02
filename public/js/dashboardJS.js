@@ -168,11 +168,11 @@ const renderDoughnutChart = (canvasName, chartLabels, chartData, transType, bgCo
     }
 
 }
-const renderCharts = (response) => {
+const renderCharts = async(month, year) => {
+    const response = await axios.get(`${baseURL}/api/user/${userId}/transactions?month=${month}&year=${year}`); // use axios to make get request to API
     let total = 0;
     let totalIncome = 0;
     let totalExpense = 0;
-    console.log(total, totalIncome, totalExpense)
 
     if (doughnutCanvas1 && doughnutCanvas2) {
         doughnutCanvas1.clearRect(0, 0, doughnutCanvas1.width, doughnutCanvas1.height);
@@ -214,7 +214,7 @@ const renderCharts = (response) => {
             incomePercentageValues.push(incomeChart[key].value);
             bgColorArray.push(incomeChart[key].bgColor)
         }
-        console.log(incomePercentageValues)
+
         renderDoughnutChart('doughnut1', keysArray, incomePercentageValues, 'Income', bgColorArray);
         incomePercentageValues = [];
         for (let key of keysArray) {
@@ -234,7 +234,6 @@ const renderCharts = (response) => {
             expensePercentageValues.push(expenseChart[key].value);
             bgColorArray.push(expenseChart[key].bgColor)
         }
-        console.log(expensePercentageValues)
         renderDoughnutChart('doughnut2', keysArray, expensePercentageValues, 'Expense', bgColorArray);
         expensePercentageValues = [];
         for (let key of keysArray) {
@@ -448,7 +447,7 @@ const getFilteredTransactions = async(load, month, year) => {
         }
         const res = await axios.get(`${baseURL}/api/user/${userId}/transactions?month=${month}&year=${year}`); // use axios to make get request to API
         renderAllTransactions(res); // call function to render all transactions of the month using data from res
-        renderCharts(res)
+        // renderCharts(res)
     } catch (e) {
         console.log(e) // if error exists, inform in console
     }
@@ -484,7 +483,10 @@ const getFilteredExpenses = async(load, month, year) => {
 }
 
 // when the page is loaded, call getFilteredTransactions function based on current month and year
-window.onload = () => getFilteredTransactions(null, currentMonth, currentYear);
+window.onload = () => {
+    getFilteredTransactions(null, currentMonth, currentYear)
+    renderCharts(currentMonth, currentYear)
+};
 
 let month = currentMonth // assign current month to the variable month when the page is loaded
 let year = currentYear // assign current year to the variable year when the page is loaded
@@ -532,7 +534,7 @@ const searchByMonth = async(evt) => {
     month = params.get('month'); // update value of month with value of month from params
     year = params.get('year'); // update value of year with value of year from params
     cardTitle.innerHTML = months[month] + ' ' + year // update card title with month and year
-    getFilteredTransactions(null, month, year); //call getFilteredTransactions function to render transactions
+    renderCharts(month, year);
     if (allTab.classList.contains('active')) { // if allTab is active
         getFilteredTransactions(null, month, year); //call getFilteredTransactions function to render transactions
     } else if (incomeTab.classList.contains('active')) { // if incomeTab is active
