@@ -18,10 +18,10 @@ $PENT is a webapp for tracking monthly incomes and expenses. It also comes with 
 - Express - Backend framework for Node.js
 - MongoDB - Non-relational database
 - JavaScript - Language used with Node.js backend and frontend.
-- Bootstrap 5 - great UI boilerplate for modern web apps
+- Bootstrap 5 - UI for web apps
 - EJS - Templating to use with Node.js and Express to render HTML with data from backend
 
-## Plugins
+## Routes
 
 Dillinger is currently extended with the following plugins.
 Instructions on how to use them in your own application are linked below.
