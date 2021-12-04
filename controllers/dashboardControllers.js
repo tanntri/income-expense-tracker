@@ -88,7 +88,7 @@ module.exports.renderEditIncomeForm = async(req, res) => {
     const income = await Income.findById(incomeId); // find income by id
     if (!income) { // if income is not found
         req.flash('error', 'Income ID not found'); // flash error message
-        res.redirect(`/user/${req.user._id}`); // redirect back to dashboard
+        return res.redirect(`/user/${req.user._id}`); // redirect back to dashboard
     }
     res.render('transactions/editincome', { income, user }); // render edit form with pre-filled values
 
@@ -114,7 +114,7 @@ module.exports.renderEditExpenseForm = async(req, res) => {
     const expense = await Expense.findById(expenseId); // find expense by id
     if (!expense) { // if expense is not found
         req.flash('error', 'Expense ID not found'); // flash error message
-        res.redirect(`/user/${req.user._id}`); // redirect back to user dashboard
+        return res.redirect(`/user/${req.user._id}`); // redirect back to user dashboard
     }
     res.render('transactions/editexpense', { expense, user }); // if found, render form with pre-filled values
 
@@ -143,12 +143,12 @@ module.exports.deleteTransaction = async(req, res) => {
                 await Income.findByIdAndDelete(transactionId); // find income by id and delete
                 await user.updateOne({ $pull: { income: transactionId } }) // pull out the income id from user's income array field
                 req.flash('success', 'Successfully deleted income') // flash success message
-                res.redirect(`/user/${id}`) // redirect back to dashboard
+                return res.redirect(`/user/${id}`) // redirect back to dashboard
             } else { // if transaction type is expense
                 await Expense.findByIdAndDelete(transactionId); // find expense by id and delete
                 await user.updateOne({ $pull: { expense: transactionId } }) // pull out the expense id from user's expense array field
                 req.flash('success', 'Successfully deleted expense') // flash success message
-                res.redirect(`/user/${id}`) // redirect back to dashboard
+                return res.redirect(`/user/${id}`) // redirect back to dashboard
             }
         }
     }
