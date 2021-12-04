@@ -311,7 +311,7 @@ const renderAllTransactions = (response) => {
                     '<div class="transaction-date">' + getDate(transaction.createdAt) + '</div></div>' +
                     '<div class="col-md-3">' + transaction.description + '</div>' +
                     '<div class="col-md-3 transaction-amount">-$' + transaction.amount + '</div>' +
-                    `<div class="col-md-3 transaction-buttons"><a class='btn btn-primary btn-sm' href="/user/${userId}/${transaction._id}/editIncome">Edit</a>` +
+                    `<div class="col-md-3 transaction-buttons"><a class='btn btn-primary btn-sm' href="/user/${userId}/${transaction._id}/editExpense">Edit</a>` +
                     `<form class='d-inline' action="/user/${userId}/${transaction._id}/deleteTransaction?_method=DELETE" method='POST'><button class='btn btn-danger btn-sm'>Delete</button></form>` +
                     '</div></div></li>';
                 total -= transaction.amount // decrement total
@@ -376,7 +376,7 @@ const renderExpenses = (response) => {
                 '<div class="transaction-date">' + getDate(expense.createdAt) + '</div></div>' +
                 '<div class="col-md-3">' + expense.description + '</div>' +
                 '<div class="col-md-3 transaction-amount">-$' + expense.amount + '</div>' +
-                `<div class="col-md-3 transaction-buttons"><a class='btn btn-primary btn-sm' href="/user/${userId}/${expense._id}/editIncome">Edit</a>` +
+                `<div class="col-md-3 transaction-buttons"><a class='btn btn-primary btn-sm' href="/user/${userId}/${expense._id}/editExpense">Edit</a>` +
                 `<form class='d-inline' action="/user/${userId}/${expense._id}/deleteTransaction?_method=DELETE" method='POST'><button class='btn btn-danger btn-sm'>Delete</button></form>` +
                 '</div></div></li>';
             totalExpense += expense.amount // increment total expense
