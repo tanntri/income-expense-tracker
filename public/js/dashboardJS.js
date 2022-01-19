@@ -169,6 +169,9 @@ const renderDoughnutChart = (canvasName, chartLabels, chartData, transType, bgCo
 
 }
 const renderCharts = async(month, year) => {
+    if ((month.toString()).length === 1) { // if month is one digit
+        month = '0' + month.toString(); // add 0 in front
+    }
     const response = await axios.get(`${baseURL}/api/user/${userId}/transactions?month=${month}&year=${year}`); // use axios to make get request to API
     let total = 0;
     let totalIncome = 0;
@@ -278,7 +281,7 @@ const baseURL = window.location.origin; // base url to call api
 //********************************** */
 const getDate = (isoDate) => {
     const fullDateTime = new Date(isoDate); // get javascript date from ISO date
-    const fullDate = `${fullDateTime.getFullYear()}` + '-' + `${fullDateTime.getMonth()}` + '-' + `${fullDateTime.getDate()}`; // get full date
+    const fullDate = `${fullDateTime.getFullYear()}` + '-' + `${fullDateTime.getMonth()+1}` + '-' + `${fullDateTime.getDate()}`; // get full date
     return fullDate; // return full date
 }
 
@@ -442,6 +445,7 @@ const getFilteredTransactions = async(load, month, year) => {
         if ((month.toString()).length === 1) { // if month is one digit
             month = '0' + month.toString(); // add 0 in front
         }
+        console.log(month)
         const res = await axios.get(`${baseURL}/api/user/${userId}/transactions?month=${month}&year=${year}`); // use axios to make get request to API
         renderAllTransactions(res); // call function to render all transactions of the month using data from res
         // renderCharts(res)
@@ -479,25 +483,6 @@ const getFilteredExpenses = async(load, month, year) => {
     } catch (e) { console.log(e) } // if error exists, inform in console
 }
 
-// when the page is loaded, call getFilteredTransactions function based on current month and year
-window.onload = () => {
-    getFilteredTransactions(null, currentMonth, currentYear)
-    renderCharts(currentMonth, currentYear)
-};
-
-let month = currentMonth // assign current month to the variable month when the page is loaded
-let year = currentYear // assign current year to the variable year when the page is loaded
-
-// add event of function of getFilteredExpenses to showExpenses when clicked
-showExpense.addEventListener('click', () => getFilteredExpenses(null, month, year));
-
-// add event of function of getFilteredIncomes to showIncomes when clicked
-showIncome.addEventListener('click', () => getFilteredIncomes(null, month, year));
-
-// add event of function of getFilteredTransactions to showAllTransacitons when clicked
-showAllTransactions.addEventListener('click', () => getFilteredTransactions(null, month, year));
-
-// object of month to pair with month name
 const months = {
     1: 'January',
     2: 'February',
@@ -515,6 +500,45 @@ const months = {
 
 const form = document.getElementById('date-form'); // assign form with id date-form to variable form
 const cardTitle = document.getElementById('title-of-card'); // assign field id title-of-card to variable cardTitle
+
+// when the page is loaded, call getFilteredTransactions function based on current month and year
+window.onload = () => {
+    cardTitle.innerHTML = months[month] + ' ' + year // update card title with month and year
+    getFilteredTransactions(null, currentMonth, currentYear)
+    renderCharts(currentMonth, currentYear)
+    console.log(currentMonth, currentYear)
+};
+
+let month = currentMonth // assign current month to the variable month when the page is loaded
+let year = currentYear // assign current year to the variable year when the page is loaded
+
+// add event of function of getFilteredExpenses to showExpenses when clicked
+showExpense.addEventListener('click', () => getFilteredExpenses(null, month, year));
+
+// add event of function of getFilteredIncomes to showIncomes when clicked
+showIncome.addEventListener('click', () => getFilteredIncomes(null, month, year));
+
+// add event of function of getFilteredTransactions to showAllTransacitons when clicked
+showAllTransactions.addEventListener('click', () => getFilteredTransactions(null, month, year));
+
+// object of month to pair with month name
+// const months = {
+//     1: 'January',
+//     2: 'February',
+//     3: 'March',
+//     4: 'April',
+//     5: 'May',
+//     6: 'June',
+//     7: 'July',
+//     8: 'August',
+//     9: 'September',
+//     10: 'October',
+//     11: 'November',
+//     12: 'December',
+// }
+
+// const form = document.getElementById('date-form'); // assign form with id date-form to variable form
+// const cardTitle = document.getElementById('title-of-card'); // assign field id title-of-card to variable cardTitle
 
 //*********************************** */
 // function to search by month

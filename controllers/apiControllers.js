@@ -94,6 +94,8 @@ module.exports.getFilteredTransactionsJson = async(req, res) => {
 
     const filteredTransactions = getFilteredArray(user.transactions, dates.startDate, dates.endDate); // transactions filterd by month and year
 
+    console.log(year, month, nextYear, nextMonth)
+
     res.json(filteredTransactions); // send filtered transactions in json
 }
 
